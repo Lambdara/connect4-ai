@@ -123,7 +123,7 @@ class Node():
 
     def __init__(self, parent=None, state=None):
         self.parent = parent
-        self.state = state if state is not None else State()
+        self.state = state.copy() if state is not None else State()
         self.children = None
 
     def expand(self):
