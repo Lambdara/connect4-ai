@@ -21,5 +21,10 @@ from connect4 import (
 )
 from random_rollouts import RandomRollout
 
-game = Game(RandomRollout(),RandomRollout())
+# Enable this to have a game of randomrollout against itself
+# game = Game(RandomRollout(),RandomRollout())
+
+# Enable this to play against RandomRollout yourself
+game = Game(Player(), RandomRollout())
+
 game.play_game()

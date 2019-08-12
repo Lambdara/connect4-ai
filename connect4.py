@@ -159,7 +159,12 @@ class Player():
     """
 
     def move(self, state):
-        return state.available_moves()[0]
+        print(
+            'You are player %d, called %s' %\
+            (state.player, 'Red' if state.player == BOARD_RED else 'Yellow')
+        )
+        print('Available moves: %s' % str(state.available_moves()))
+        return int(input('Move (number): '))
 
 
 class Game():
