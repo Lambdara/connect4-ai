@@ -25,6 +25,7 @@ BOARD_ROWS = 6
 BOARD_EMPTY = 0
 BOARD_RED = 1
 BOARD_YELLOW = 2
+TIE = 3
 
 
 class State():
@@ -101,6 +102,10 @@ class State():
                    self.data[col+3,row+3]:
                     return self.data[col,row]
 
+        # Check for tie
+        if BOARD_EMPTY not in self.data:
+            return TIE
+
         # No winner
         return None
 
@@ -121,13 +126,18 @@ class Node():
     the actual children ([] in case it is a leaf node).
     """
 
-    def __init__(self, parent=None, state=None):
+    def __init__(self, parent=None, state=None, move=None):
         self.parent = parent
         self.state = state.copy() if state is not None else State()
         self.children = None
+        self.move = move # The move to get here from the previous node
 
     def expand(self):
         # Replaces children with a list of nodes, one for each available move
+
+        if self.children is not None:
+            # Already ran, nothing to do
+            return
 
         self.children = []
 
@@ -135,7 +145,7 @@ class Node():
             state = self.state.copy()
             state.move(move)
 
-            node = Node(parent=self, state=state)
+            node = Node(parent=self, state=state, move=move)
             self.children.append(node)
 
     def __str__(self):
@@ -173,4 +183,11 @@ class Game():
         while self.state.winner() is None:
             self.play_turn(printing=printing)
         if printing:
-            print('Winner: %s' % ('Red' if self.state.winner() == BOARD_RED else 'Yellow'))
+            winner = self.state.winner()
+            if winner == BOARD_RED:
+                winner_text = 'Red'
+            elif winner == BOARD_YELLOW:
+                winner_text = 'Yellow'
+            else:
+                winner_text = 'tie'
+            print('Winner: %s' % winner_text)
