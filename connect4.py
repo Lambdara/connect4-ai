@@ -110,3 +110,25 @@ class State():
         state.player = self.player
 
         return state
+
+
+class Node():
+    def __init__(self, parent=None, state=None):
+        self.parent = parent
+        self.state = state if state is not None else State()
+        self.children = None
+
+    def expand(self):
+        # Replaces children with a list of nodes, one for each available move
+
+        self.children = []
+
+        for move in self.state.available_moves():
+            state = self.state.copy()
+            state.move(move)
+
+            node = Node(parent=self, state=state)
+            self.children.append(node)
+
+    def __str__(self):
+        return self.state.__str__()
