@@ -113,6 +113,14 @@ class State():
 
 
 class Node():
+    """
+    For building a gametree, will be useful to various AIs.
+
+    It is initialized with children being None. This means that the children
+    arent generated yet. Calling expand will replace children with the list of
+    the actual children ([] in case it is a leaf node).
+    """
+
     def __init__(self, parent=None, state=None):
         self.parent = parent
         self.state = state if state is not None else State()
