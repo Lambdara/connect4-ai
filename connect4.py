@@ -148,5 +148,29 @@ class Player():
     inherit from this to define behavior that the game will understand.
     """
 
-    def move(state):
+    def move(self, state):
         return state.available_moves()[0]
+
+
+class Game():
+    def __init__(self, red_player, yellow_player):
+        self.red_player = red_player
+        self.yellow_player = yellow_player
+        self.state = State()
+
+    def play_turn(self, printing=True):
+        if self.state.player == BOARD_RED:
+            move = self.red_player.move(self.state.copy())
+        else:
+            move = self.yellow_player.move(self.state.copy())
+
+        self.state.move(move)
+
+        if printing:
+            print(self.state)
+
+    def play_game(self, printing=True):
+        while self.state.winner() is None:
+            self.play_turn(printing=printing)
+        if printing:
+            print('Winner: %s' % ('Red' if self.state.winner() == BOARD_RED else 'Yellow'))
