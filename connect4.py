@@ -30,11 +30,30 @@ TIE = 3
 
 class State():
     def __init__(self):
-        self.data = np.zeros((BOARD_COLUMNS, BOARD_ROWS))
+        self.data = np.zeros((BOARD_COLUMNS, BOARD_ROWS), dtype=np.int32)
         self.player = BOARD_RED
 
     def __str__(self):
-        return np.flipud(np.transpose(self.data)).__str__()
+        result = '-' * (BOARD_COLUMNS*2+1)
+        for row in range(BOARD_ROWS-1,-1,-1):
+            result += '\n|'
+            for col in range(BOARD_COLUMNS):
+                if col != 0:
+                    result += ' '
+                if self.data[col, row] == BOARD_RED:
+                    result += '\033[91m'
+                    colored = True
+                elif self.data[col, row] == BOARD_YELLOW:
+                    result += '\033[93m'
+                    colored = True
+                else:
+                    colored = False
+                result += str(self.data[col,row])
+                if colored:
+                    result += '\033[0m'
+            result += '|'
+        result += '\n' + '-' * (BOARD_COLUMNS*2+1)
+        return result
 
     def move(self, col, player=None):
         if player is None:
