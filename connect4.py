@@ -140,3 +140,13 @@ class Node():
 
     def __str__(self):
         return self.state.__str__()
+
+
+class Player():
+    """
+    Player is a class that defines behavior in a game. AI implementations can
+    inherit from this to define behavior that the game will understand.
+    """
+
+    def move(state):
+        return state.available_moves()[0]
