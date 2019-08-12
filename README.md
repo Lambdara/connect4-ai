@@ -4,6 +4,8 @@ This is an experiment at implementing a variety of AI systems to play connect-4.
 
 In main.py you can find some examples of how to use this software. Please keep in mind that when the system seems to be hanging, it is quite possibly just waiting for the AI to compute the next move.
 
+Please refer to requirements.txt for the packages needed to run this software.
+
 ## License
 
 Copyright (C) 2019 Uwila
