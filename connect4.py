@@ -135,42 +135,6 @@ class State():
 
         return state
 
-
-class Node():
-    """
-    For building a gametree, will be useful to various AIs.
-
-    It is initialized with children being None. This means that the children
-    arent generated yet. Calling expand will replace children with the list of
-    the actual children ([] in case it is a leaf node).
-    """
-
-    def __init__(self, parent=None, state=None, move=None):
-        self.parent = parent
-        self.state = state.copy() if state is not None else State()
-        self.children = None
-        self.move = move # The move to get here from the previous node
-
-    def expand(self):
-        # Replaces children with a list of nodes, one for each available move
-
-        if self.children is not None:
-            # Already ran, nothing to do
-            return
-
-        self.children = []
-
-        for move in self.state.available_moves():
-            state = self.state.copy()
-            state.move(move)
-
-            node = Node(parent=self, state=state, move=move)
-            self.children.append(node)
-
-    def __str__(self):
-        return self.state.__str__()
-
-
 class Player():
     """
     Player is a class that defines behavior in a game. AI implementations can

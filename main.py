@@ -20,11 +20,18 @@ from connect4 import (
     Player,
 )
 from random_rollouts import RandomRollout
+from mcts import MCTS
 
 # Enable this to have a game of randomrollout against itself
 # game = Game(RandomRollout(),RandomRollout())
 
 # Enable this to play against RandomRollout yourself
-game = Game(Player(), RandomRollout())
+# game = Game(Player(), RandomRollout())
+
+# Enable this to have MCTS-10 against MCTS-1000
+# game = Game(MCTS(walks=10),MCTS(walks=1000))
+
+# MCTS vs random rollouts
+game = Game(RandomRollout(),MCTS())
 
 game.play_game()
