@@ -32,25 +32,25 @@ class RandomRollout(Player):
     printing = False
 
     def move(self, state):
-        tree = Node(state=state)
-        tree.expand()
-
         best_move = None
         best_count = -1
-        for child in tree.children:
+        for move in state.available_moves():
             count = 0
             for _ in range(self.walks):
-                if self.random_walk(child).state.winner() == state.player:
+                if self.random_walk(state.copy(), move).winner() == state.player:
                     count += 1
             if self.printing:
-                print('%d: %f' % (child.move, count/self.walks))
+                print('%d: %f' % (move, count/self.walks))
             if count > best_count:
                 best_count = count
-                best_move = child.move
+                best_move = move
         return best_move
 
-    def random_walk(self,node):
-        while node.state.winner() is None:
-            node.expand()
-            node = random.choice(node.children)
-        return node
+    def random_walk(self, state, move):
+        """
+        Does a random walk from some state which results from some move
+        """
+        state.move(move)
+        while state.winner() is None:
+            state.move(random.choice(state.available_moves()))
+        return state
