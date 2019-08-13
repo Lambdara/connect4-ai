@@ -182,8 +182,8 @@ class Player():
             'You are player %d, called %s' %\
             (state.player, 'Red' if state.player == BOARD_RED else 'Yellow')
         )
-        print('Available moves: %s' % str(state.available_moves()))
-        return int(input('Move (number): '))
+        print('Available moves: %s' % str([x+1 for x in state.available_moves()]))
+        return int(input('Move (number): '))-1
 
 
 class Game():
