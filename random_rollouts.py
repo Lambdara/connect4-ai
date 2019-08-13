@@ -17,7 +17,6 @@
 
 from connect4 import (
     State,
-    Node,
     Player,
 )
 import random
