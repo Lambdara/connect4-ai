@@ -41,10 +41,10 @@ class State():
                 if col != 0:
                     result += ' '
                 if self.data[col, row] == BOARD_RED:
-                    result += '\033[91m'
+                    result += '\033[1;37;41m'
                     colored = True
                 elif self.data[col, row] == BOARD_YELLOW:
-                    result += '\033[93m'
+                    result += '\033[1;30;43m'
                     colored = True
                 else:
                     colored = False
